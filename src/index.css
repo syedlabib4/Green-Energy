@@ -1,0 +1,202 @@
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Vibrant Modern Light Theme */
+  --bg: 250 252 255;
+  --bg-elev: 255 255 255;
+  --text: 15 23 42;
+  --muted: 100 116 139;
+  /* Vibrant Emerald to Cyan Gradient - Eye-catching for hackathon */
+  --primary: 16 185 129;
+  --primary-strong: 6 182 212;
+  --primary-light: 110 231 183;
+  --primary-dark: 5 150 105;
+  /* Vibrant Accent Colors */
+  --accent: 99 102 241;
+  --accent-2: 139 92 246;
+  --accent-3: 59 130 246;
+  --success: 34 197 94;
+  --warning: 251 146 60;
+  --error: 239 68 68;
+  --ring: 16 185 129;
+  --shadow: 0 20px 50px rgba(16, 185, 129, 0.15);
+  --glow: 0 0 30px rgba(16, 185, 129, 0.3);
+}
+
+.dark:root {
+  /* Vibrant Modern Dark Theme */
+  --bg: 9 14 23;
+  --bg-elev: 15 23 42;
+  --text: 241 245 249;
+  --muted: 148 163 184;
+  /* Even more vibrant in dark mode */
+  --primary: 16 185 129;
+  --primary-strong: 6 182 212;
+  --primary-light: 110 231 183;
+  --primary-dark: 5 150 105;
+  --accent: 99 102 241;
+  --accent-2: 139 92 246;
+  --accent-3: 59 130 246;
+  --success: 34 197 94;
+  --warning: 251 146 60;
+  --error: 239 68 68;
+  --ring: 110 231 183;
+  --shadow: 0 20px 50px rgba(16, 185, 129, 0.25);
+  --glow: 0 0 40px rgba(110, 231, 183, 0.4);
+}
+
+@layer base {
+  html, body, #root { 
+    height: 100%; 
+    overflow-x: hidden; /* Prevent horizontal scroll */
+  }
+  body { 
+    background-color: rgb(var(--bg)); 
+    color: rgb(var(--text));
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    padding-top: 0;
+  }
+  
+  /* Better touch targets on mobile */
+  button, a {
+    touch-action: manipulation;
+  }
+  
+  /* Prevent text size adjustment on iOS */
+  input, textarea, select {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  @media (min-width: 640px) {
+    input, textarea, select {
+      font-size: inherit;
+    }
+  }
+
+  /* Fix for navbar overlap - ensure main content starts below navbar */
+  main[data-navbar-spacing] {
+    margin-top: 4rem;
+    min-height: calc(100vh - 4rem);
+  }
+  
+  @media (min-width: 768px) {
+    main[data-navbar-spacing] {
+      margin-top: 5rem;
+      min-height: calc(100vh - 5rem);
+    }
+  }
+}
+
+@layer components {
+  .ui-card {
+    @apply rounded-2xl border border-black/5 dark:border-white/5;
+    background-color: rgb(var(--bg-elev));
+    box-shadow: var(--shadow);
+  }
+
+  .ui-section {
+    @apply rounded-2xl border border-black/5 dark:border-white/5 p-6;
+    background-color: rgb(var(--bg-elev));
+    box-shadow: var(--shadow);
+  }
+
+  .ui-h1 { @apply text-3xl font-bold; }
+  .ui-h2 { @apply text-xl font-semibold; }
+  .ui-muted { color: rgb(var(--muted)); }
+
+  .ui-input {
+    @apply rounded-xl border text-base sm:text-sm px-3 sm:px-3 py-3 sm:py-2 outline-none transition min-h-[44px];
+    background-color: white;
+    color: rgb(17 24 39);
+    border-color: rgb(209 213 219);
+    box-shadow: 0 2px 4px rgba(0,0,0,.05);
+  }
+  .ui-input:focus {
+    border-color: rgb(var(--primary));
+    box-shadow: 0 0 0 3px rgba(var(--primary), 0.1), 0 4px 12px rgba(var(--primary), 0.15);
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(135deg, rgb(var(--primary)), rgb(var(--primary-strong))) border-box;
+  }
+  .dark .ui-input {
+    background-color: rgb(15 23 42);
+    color: rgb(241 245 249);
+    border-color: rgb(51 65 85);
+  }
+  .dark .ui-input:focus {
+    border-color: rgb(var(--primary-light));
+    box-shadow: 0 0 0 3px rgba(var(--primary-light), 0.2), 0 4px 16px rgba(var(--primary), 0.3);
+  }
+
+  .ui-btn {
+    @apply inline-flex items-center justify-center font-medium rounded-xl px-4 py-2.5 sm:py-2 transition min-h-[44px];
+  }
+  .ui-btn-primary {
+    background: linear-gradient(135deg, rgb(var(--primary)) 0%, rgb(var(--primary-strong)) 100%);
+    @apply text-white shadow-lg;
+    box-shadow: 0 10px 30px rgba(var(--primary), 0.4), var(--shadow);
+    transition: all 0.3s ease;
+  }
+  .ui-btn-primary:hover {
+    background: linear-gradient(135deg, rgb(var(--primary-strong)) 0%, rgb(var(--primary)) 100%);
+    box-shadow: 0 15px 40px rgba(var(--primary), 0.5), var(--glow);
+    transform: translateY(-2px);
+  }
+  .ui-btn-ghost {
+    @apply bg-transparent border border-black/10 dark:border-white/10 text-current;
+  }
+
+  .ui-badge {
+    @apply inline-flex items-center gap-2 text-xs font-medium px-2.5 py-1 rounded-full;
+    background: linear-gradient(135deg, rgba(16,185,129,.15) 0%, rgba(6,182,212,.15) 100%);
+    color: rgb(var(--primary));
+    border: 1px solid rgba(var(--primary), 0.3);
+    box-shadow: 0 2px 8px rgba(var(--primary), 0.1);
+  }
+  .dark .ui-badge { 
+    background: linear-gradient(135deg, rgba(16,185,129,.25) 0%, rgba(6,182,212,.25) 100%);
+    border-color: rgba(var(--primary-light), 0.4);
+    box-shadow: 0 2px 12px rgba(var(--primary-light), 0.2);
+  }
+
+  .ui-glow {
+    position: relative;
+  }
+  .ui-glow::after {
+    content: "";
+    position: absolute; inset: -1px;
+    border-radius: 1rem;
+    background: radial-gradient(60% 60% at 80% 20%, rgba(16,185,129,.25) 0%, rgba(16,185,129,0) 60%),
+                radial-gradient(40% 40% at 20% 80%, rgba(6,182,212,.20) 0%, rgba(6,182,212,0) 60%),
+                radial-gradient(30% 30% at 50% 50%, rgba(99,102,241,.15) 0%, rgba(99,102,241,0) 60%);
+    filter: blur(16px);
+    z-index: -1;
+    opacity: 0.8;
+  }
+
+  .ui-tabs {
+    @apply inline-flex items-center gap-2 rounded-xl p-1 bg-black/10 dark:bg-white/10;
+  }
+  .ui-tab {
+    @apply px-4 py-1.5 rounded-lg text-sm font-medium transition;
+    color: rgb(var(--muted));
+  }
+  .ui-tab-active {
+    @apply bg-black/80 text-white dark:bg-white/80 dark:text-black;
+  }
+
+  .logo-img {
+    background: transparent;
+    mix-blend-mode: multiply;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  }
+  
+  .dark .logo-img {
+    mix-blend-mode: screen;
+    filter: drop-shadow(0 2px 4px rgba(255, 255, 255, 0.1));
+  }
+}
